@@ -1,0 +1,370 @@
+running mol5078.xyz
+charge          = 0
+T electron = 300
+iter = 1
+        |g(k)| = 0.0421454         max|g(k)| = 0.126008        congG = 0
+        |Delta E| = 0.00563145
+current energy = -37.2251 Eh
+iter = 2
+        |g(k)| = 0.021954         max|g(k)| = 0.0556725        congG = 0
+        |Delta E| = 0.00212768
+current energy = -37.2272 Eh
+iter = 3
+        |g(k)| = 0.010278         max|g(k)| = 0.0215308        congG = 0
+        |Delta E| = 0.00118383
+current energy = -37.2284 Eh
+iter = 4
+        |g(k)| = 0.00527193         max|g(k)| = 0.0145477        congG = 0
+        |Delta E| = 0.000684961
+current energy = -37.2291 Eh
+iter = 5
+        |g(k)| = 0.00376907         max|g(k)| = 0.00923338        congG = 0
+        |Delta E| = 0.000375184
+current energy = -37.2294 Eh
+iter = 6
+        |g(k)| = 0.00180768         max|g(k)| = 0.00457923        congG = 0
+        |Delta E| = 0.00014353
+current energy = -37.2296 Eh
+iter = 7
+        |g(k)| = 0.00119239         max|g(k)| = 0.00227089        congG = 0
+        |Delta E| = 1.89455e-05
+current energy = -37.2296 Eh
+iter = 8
+        |g(k)| = 0.000673016         max|g(k)| = 0.00126035        congG = 1
+        |Delta E| = 6.48566e-06
+current energy = -37.2296 Eh
+iter = 9
+        |g(k)| = 0.000204083         max|g(k)| = 0.00034804        congG = 1
+        |Delta E| = 6.23203e-07
+current energy = -37.2296 Eh
+Convergence in 9 iterations.
+closed-shell calculation
+occupation vector 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+iteration 1
+Energy = -37.835
+orbital energies: -0.689879 -0.673031 -0.66307 -0.654801 -0.640394 -0.631428 -0.621759 -0.615478 -0.598791 -0.594634 -0.583392 -0.570591 -0.559248 -0.555036 -0.539368 -0.532135 -0.519941 -0.511958 -0.506785 -0.500029 -0.499682 -0.488041 -0.471535 -0.469852 -0.459695 -0.458617 -0.450195 -0.441197 -0.431938 -0.420402 -0.398169 -0.38695 -0.364259 -0.354239 -0.267178 -0.229021 -0.213724 -0.183643 -0.106446 -0.0836268 0.0159631 0.0495735 0.0958371 0.110285 0.136597 0.143054 0.148463 0.16734 0.184267 0.207021 0.241476 0.254677 0.275218 0.334309 0.361559 0.395823 0.42123 0.446292 0.472445 0.511131 0.584321 0.625673 0.661619 0.6706 
+iteration 2
+Energy = -37.835
+orbital energies: -0.689878 -0.673031 -0.663069 -0.6548 -0.640394 -0.631428 -0.621759 -0.615478 -0.598791 -0.594634 -0.583391 -0.570591 -0.559247 -0.555036 -0.539368 -0.532135 -0.519941 -0.511958 -0.506784 -0.500029 -0.499682 -0.488041 -0.471534 -0.469852 -0.459695 -0.458617 -0.450195 -0.441197 -0.431938 -0.420402 -0.398169 -0.38695 -0.364259 -0.354239 -0.267178 -0.229021 -0.213724 -0.183642 -0.106446 -0.0836266 0.0159635 0.0495738 0.0958371 0.110285 0.136597 0.143054 0.148463 0.167341 0.184267 0.207021 0.241476 0.254677 0.275218 0.334309 0.361559 0.395823 0.42123 0.446293 0.472445 0.511131 0.584321 0.625673 0.661619 0.6706 
+convergence after 2 iterations
+Optimized orbital energies: -0.689878 -0.673031 -0.663069 -0.6548 -0.640394 -0.631428 -0.621759 -0.615478 -0.598791 -0.594634 -0.583391 -0.570591 -0.559247 -0.555036 -0.539368 -0.532135 -0.519941 -0.511958 -0.506784 -0.500029 -0.499682 -0.488041 -0.471534 -0.469852 -0.459695 -0.458617 -0.450195 -0.441197 -0.431938 -0.420402 -0.398169 -0.38695 -0.364259 -0.354239 -0.267178 -0.229021 -0.213724 -0.183642 -0.106446 -0.0836266 0.0159635 0.0495738 0.0958371 0.110285 0.136597 0.143054 0.148463 0.167341 0.184267 0.207021 0.241476 0.254677 0.275218 0.334309 0.361559 0.395823 0.42123 0.446293 0.472445 0.511131 0.584321 0.625673 0.661619 0.6706 
+Total Energy = -37.229617502105789
+Electronic Energy = -37.83504896825302
+Nuclear Repulsion = 0.60543146614722931
+Self-Consistent Energy = -38.44042752766785
+Gsolv = -0.020505899232596003
+
+>all vibrational frequencies
+-296.6472
+0
+0
+0
+0
+0
+0
+99.0882
+129.5178
+183.3323
+218.0264
+267.4616
+358.441
+378.0177
+389.4663
+421.695
+427.6397
+504.7044
+536.9765
+546.5269
+546.7473
+602.6268
+627.1565
+629.7548
+693.9798
+711.0487
+729.6533
+773.2081
+816.9526
+853.6442
+864.4543
+872.6602
+887.8363
+908.3145
+914.2119
+924.4899
+957.4708
+1041.8
+1056.266
+1121.861
+1133.517
+1148.771
+1209.295
+1233.174
+1265.89
+1295.661
+1317.084
+1330.881
+1354.101
+1376.866
+1437.293
+1454.299
+1482.212
+1511.423
+1524.622
+1568.963
+1594.04
+1628.414
+3085.38
+3098.665
+3103.153
+3111.327
+3125.711
+3129.974
+3510.31
+3585.058
+<all vibrational frequencies
+print output:
+gas constant:     8.314471
+number molecules: 6.022141e+23
+particle in box: 
+   n dimensions      3
+   mass              3.0586747e-25
+   volume            0.0224000
+
+rigid rotor: 
+   symmetry group    5
+   sigma             1
+   inertia           4.4998972e-45 1.6553499e-44 2.1053396e-44 
+harmonic oscillator: 
+   vibrations        0.0000000 99.0881968 129.5178098 183.3322627 218.0264409 267.4616050 358.4410126 378.0177286 389.4662603 421.6949896 427.6396609 504.7043621 536.9764821 546.5268503 546.7472596 602.6267943 627.1564611 629.7547534 693.9798326 711.0487170 729.6533013 773.2080514 816.9525915 853.6441563 864.4543409 872.6602440 887.8362550 908.3144508 914.2118694 924.4898665 957.4708168 1041.7995027 1056.2655307 1121.8611972 1133.5169981 1148.7709975 1209.2950291 1233.1738681 1265.8898973 1295.6608120 1317.0837241 1330.8805564 1354.1006001 1376.8661914 1437.2929093 1454.2994696 1482.2119622 1511.4227421 1524.6217857 1568.9631000 1594.0396538 1628.4138173 3085.3795426 3098.6653558 3103.1531248 3111.3270666 3125.7106631 3129.9737461 3510.3102472 3585.0582009 
+   ThetaVibr         0.0000000 142.5656339 186.3470044 263.7739012 313.6910221 384.8171070 515.7160166 543.8825088 560.3543716 606.7242659 615.2773112 726.1560871 772.5884110 786.3292433 786.6463627 867.0444478 902.3371226 906.0754808 998.4809279 1023.0392144 1049.8070277 1112.4725192 1175.4110758 1228.2019870 1243.7554117 1255.5618612 1277.3967284 1306.8602474 1315.3453067 1330.1330333 1377.5852045 1498.9152211 1519.7285824 1614.1059964 1630.8760730 1652.8231480 1739.9036198 1774.2598997 1821.3309090 1864.1645609 1894.9873141 1914.8378533 1948.2462748 1981.0008416 2067.9413008 2092.4099170 2132.5697173 2174.5974611 2193.5879169 2257.3850974 2293.4646195 2342.9213112 4439.1673706 4458.2826684 4464.7395587 4476.5000229 4497.1947840 4503.3284018 5050.5471029 5158.0926001 
+Electronic energies: 
+(1.0000000) -37.2296175  
+>Thermodynamics
+250.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+250.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+251.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+251.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+252.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+252.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+253.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+253.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+254.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+254.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+255.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+255.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+256.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+256.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+257.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+257.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+258.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+258.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+259.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+259.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+260.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+260.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+261.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+261.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+262.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+262.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+263.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+263.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+264.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+264.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+265.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+265.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+266.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+266.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+267.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+267.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+268.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+268.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+269.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+269.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+270.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+270.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+271.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+271.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+272.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+272.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+273.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+273.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+274.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+274.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+275.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+275.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+276.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+276.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+277.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+277.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+278.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+278.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+279.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+279.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+280.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+280.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+281.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+281.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+282.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+282.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+283.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+283.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+284.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+284.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+285.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+285.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+286.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+286.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+287.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+287.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+288.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+288.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+289.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+289.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+290.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+290.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+291.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+291.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+292.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+292.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+293.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+293.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+294.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+294.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+295.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+295.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+296.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+296.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+297.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+297.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+298.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+298.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+299.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+299.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+300.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+300.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+301.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+301.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+302.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+302.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+303.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+303.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+304.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+304.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+305.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+305.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+306.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+306.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+307.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+307.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+308.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+308.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+309.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+309.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+310.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+310.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+311.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+311.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+312.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+312.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+313.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+313.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+314.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+314.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+315.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+315.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+316.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+316.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+317.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+317.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+318.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+318.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+319.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+319.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+320.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+320.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+321.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+321.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+322.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+322.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+323.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+323.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+324.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+324.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+325.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+325.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+326.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+326.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+327.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+327.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+328.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+328.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+329.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+329.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+330.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+330.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+331.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+331.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+332.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+332.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+333.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+333.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+334.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+334.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+335.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+335.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+336.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+336.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+337.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+337.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+338.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+338.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+339.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+339.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+340.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+340.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+341.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+341.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+342.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+342.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+343.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+343.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+344.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+344.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+345.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+345.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+346.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+346.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+347.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+347.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+348.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+348.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+349.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+349.5000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+350.0000000;-nan;-nan;-nan;-nan;-nan;-nan;-nan
+<Thermodynamics
+>atom;charge;pol
+7;-0.2979074;7.8131986
+6;0.1605376;8.1216169
+6;-0.0843380;8.9988630
+6;-0.0402232;8.8305176
+6;0.0388434;8.3998551
+7;-0.3589821;8.1459257
+6;0.1322296;8.0893396
+6;-0.0561857;8.8901843
+6;-0.0307122;8.7953738
+6;-0.0514597;8.8727962
+6;0.0166578;8.6154127
+7;-0.0168590;6.8985078
+6;0.1075741;8.2869242
+7;-0.3389734;8.0700931
+1;0.2254116;1.5547611
+1;0.2342766;1.5242395
+1;0.0454932;2.4108567
+1;0.0423471;2.4314795
+1;0.0631554;2.2994475
+1;0.0612171;2.3113329
+1;0.0696477;2.2603009
+1;0.0782492;2.2098760
+<atom;charge;pol
+ Total Polarizability          133.8309030

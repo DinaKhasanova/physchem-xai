@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "physchem-xai"
+version = "1.0.0"
+description = "Physicochemical descriptors for explainable mutagenicity prediction"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = [
+  "torch",
+  "lightning",
+  "pandas",
+  "numpy",
+  "scipy",
+  "scikit-learn",
+  "matplotlib",
+  "rdkit",
+  "transformers",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

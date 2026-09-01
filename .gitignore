@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Checkpoints and large artefacts
+*.ckpt
+*.pt
+*.pth
+
+# Logs and process files
+logs/
+*.log
+*.pid
+nohup.out
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Pretrained weights (download from HuggingFace)
+*.safetensors
+
+# Pretrained weights (downloaded from HuggingFace on first run)
+models/molencoder/

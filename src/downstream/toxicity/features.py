@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 
 import csv
 import math
@@ -599,18 +600,46 @@ def build_token_feature_matrix(
 # signal. Measured on 400 random molecules, the correlation between the raw
 # value and the LayerNorm output across molecules was 0.215 for HOMO and
 # -0.380 for chemical potential: not merely lost but inverted.
-MOLECULE_FEATURE_STATS = {
-    "orbital": {
-        "mean": [-0.38236, -0.26563, 0.65388],
-        "sd":   [0.02813, 0.06543, 0.56662],
+# Statistics are dataset-specific: each dataset is standardised against its own
+# distribution, so the same procedure is applied to every experiment. Select
+# with the PHYSCHEM_STATS environment variable; "ames" is the default and is
+# what every runs_7251/ model was trained with. Do not change the "ames" values,
+# or those checkpoints can no longer be reproduced and any attribution computed
+# from them would use a different standardisation than the model saw in training.
+_MOLECULE_FEATURE_STATS_BY_DATASET = {
+    # measured over all 7,251 molecules of data/ames_7251.csv
+    "ames": {
+        "orbital": {
+            "mean": [-0.38236, -0.26563, 0.65388],
+            "sd":   [0.02813, 0.06543, 0.56662],
+        },
+        "physchem": {
+            "mean": [0.24272, 0.22176, 0.25086, 0.32736, 0.10650,
+                     0.15709, 0.13977, 0.20876, 0.16752, 0.34368],
+            "sd":   [0.10807, 0.16827, 0.20065, 0.14731, 0.13332,
+                     0.11347, 0.16466, 0.16131, 0.07693, 0.33098],
+        },
     },
-    "physchem": {
-        "mean": [0.24272, 0.22176, 0.25086, 0.32736, 0.10650,
-                 0.15709, 0.13977, 0.20876, 0.16752, 0.34368],
-        "sd":   [0.10807, 0.16827, 0.20065, 0.14731, 0.13332,
-                 0.11347, 0.16466, 0.16131, 0.07693, 0.33098],
+    # measured over all 18,754 molecules of
+    # data/pesticides_genotoxicity_ames_format.csv
+    "pesticide": {
+        # no xTB calculations for this dataset; orbital stats are not defined
+        "physchem": {
+            "mean": [0.27764, 0.24716, 0.26911, 0.36869, 0.11777,
+                     0.17985, 0.19475, 0.20912, 0.19079, 0.39947],
+            "sd":   [0.14425, 0.20631, 0.22524, 0.19109, 0.15753,
+                     0.14158, 0.21488, 0.17269, 0.10133, 0.32488],
+        },
     },
 }
+
+_PHYSCHEM_STATS_DATASET = os.environ.get("PHYSCHEM_STATS", "ames")
+if _PHYSCHEM_STATS_DATASET not in _MOLECULE_FEATURE_STATS_BY_DATASET:
+    raise ValueError(
+        f"PHYSCHEM_STATS={_PHYSCHEM_STATS_DATASET!r} is not one of "
+        f"{sorted(_MOLECULE_FEATURE_STATS_BY_DATASET)}"
+    )
+MOLECULE_FEATURE_STATS = _MOLECULE_FEATURE_STATS_BY_DATASET[_PHYSCHEM_STATS_DATASET]
 
 
 def _standardise_molecule_values(feature_name, values):

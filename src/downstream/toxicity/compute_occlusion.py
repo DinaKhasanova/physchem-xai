@@ -118,16 +118,53 @@ def load_lightning_model(config: OcclusionConfig) -> ToxicityLightningModule:
     )
     encoder = MolEncoderWrapper(encoder_config)
     checkpoint = torch.load(config.checkpoint_path, map_location="cpu")
-    classifier_input_size = int(checkpoint["state_dict"]["model.classifier.0.weight"].shape[0])
-    if classifier_input_size == encoder.hidden_size:
-        classifier = LegacyClsToxicityClassifier(encoder=encoder, num_labels=2)
-    else:
-        classifier = ToxicityClassifier(
+    state = checkpoint["state_dict"]
+
+    if "model.base_classifier.weight" in state:
+        # SmilesAnchorResidualAuxClassifier: confidence-gated residual fusion.
+        # Feature dimensions are read back from tensor shapes rather than taken
+        # from the CLI, so a mismatch fails loudly instead of scoring wrongly.
+        from downstream.toxicity.finetune import SmilesAnchorResidualAuxClassifier
+
+        hidden = int(state["model.base_classifier.weight"].shape[1])
+        ckpt_token_dim = 0
+        if "model.token_proj.0.weight" in state:
+            ckpt_token_dim = (int(state["model.token_proj.0.weight"].shape[0]) - hidden) // 4
+        ckpt_molecule_dim = 0
+        if "model.molecule_proj.1.weight" in state:
+            ckpt_molecule_dim = int(state["model.molecule_proj.1.weight"].shape[1])
+
+        want_token_dim = len(config.token_feature_names)
+        want_molecule_dim = molecule_feature_dimension(config.molecule_feature_names)
+        if ckpt_token_dim != want_token_dim:
+            raise ValueError(
+                f"{config.checkpoint_path}: checkpoint token_feature_dim="
+                f"{ckpt_token_dim} but --token-features implies {want_token_dim}"
+            )
+        if ckpt_molecule_dim != want_molecule_dim:
+            raise ValueError(
+                f"{config.checkpoint_path}: checkpoint molecule_feature_dim="
+                f"{ckpt_molecule_dim} but --molecule-features implies {want_molecule_dim}"
+            )
+
+        classifier = SmilesAnchorResidualAuxClassifier(
             encoder=encoder,
             num_labels=2,
-            token_feature_dim=len(config.token_feature_names),
-            molecule_feature_dim=molecule_feature_dimension(config.molecule_feature_names),
+            token_feature_dim=ckpt_token_dim,
+            molecule_feature_dim=ckpt_molecule_dim,
+            weight_mode=getattr(config, "token_weight_mode", "abs"),
         )
+    else:
+        classifier_input_size = int(state["model.classifier.0.weight"].shape[0])
+        if classifier_input_size == encoder.hidden_size:
+            classifier = LegacyClsToxicityClassifier(encoder=encoder, num_labels=2)
+        else:
+            classifier = ToxicityClassifier(
+                encoder=encoder,
+                num_labels=2,
+                token_feature_dim=len(config.token_feature_names),
+                molecule_feature_dim=molecule_feature_dimension(config.molecule_feature_names),
+            )
     lightning_model = ToxicityLightningModule(model=classifier, learning_rate=2e-5, weight_decay=1e-2)
     lightning_model.load_state_dict(checkpoint["state_dict"], strict=True)
     lightning_model.eval()

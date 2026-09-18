@@ -93,11 +93,13 @@ def create_loader(
     token_feature_names: tuple[str, ...],
     molecule_feature_names: tuple[str, ...],
     charge_xyz_dir: Path | None,
+    token_feature_normalize_mode: str = "per_molecule",
 ):
     collator = ToxicityCollator(
         encoder,
         feature_names=list(token_feature_names),
         molecule_feature_names=list(molecule_feature_names),
+        token_feature_normalize_mode=token_feature_normalize_mode,
         charge_xyz_dir=charge_xyz_dir,
     )
     return torch.utils.data.DataLoader(

@@ -187,6 +187,9 @@ def main() -> None:
     parser.add_argument("--token-features", nargs="*", default=["charge"])
     parser.add_argument("--molecule-features", nargs="*", default=[])
     parser.add_argument("--charge-xyz-dir", type=Path, default=None)
+    parser.add_argument("--token-feature-normalize-mode",
+                        default="per_molecule", choices=("per_molecule", "none", "dataset"),
+                        help="must match how this model was trained")
     parser.add_argument("--folds", type=int, nargs="+", default=[1, 2, 3, 4, 5])
     parser.add_argument("--split-name", default="test")
     parser.add_argument("--cohort", type=Path, default=Path("results/xai/flip_cohort.csv"))
@@ -233,6 +236,7 @@ def main() -> None:
             token_feature_names=tuple(args.token_features),
             molecule_feature_names=tuple(args.molecule_features),
             charge_xyz_dir=args.charge_xyz_dir,
+            token_feature_normalize_mode=args.token_feature_normalize_mode,
         )
 
         # descriptor baseline: per-feature median over this fold's TRAIN split
@@ -243,6 +247,7 @@ def main() -> None:
             token_feature_names=tuple(args.token_features),
             molecule_feature_names=tuple(args.molecule_features),
             charge_xyz_dir=args.charge_xyz_dir,
+            token_feature_normalize_mode=args.token_feature_normalize_mode,
         )
         collected = []
         for i, b in enumerate(train_loader):

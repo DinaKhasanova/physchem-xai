@@ -64,6 +64,7 @@ def score_split(
     num_workers: int,
     weight_mode: str,
     target_class: int,
+    token_feature_normalize_mode: str = "per_molecule",
 ) -> pd.DataFrame:
     """Probability of the positive class for every molecule in the split."""
     from downstream.toxicity.features import molecule_feature_dimension
@@ -91,6 +92,7 @@ def score_split(
         token_feature_names=token_features,
         molecule_feature_names=molecule_features,
         charge_xyz_dir=charge_xyz_dir,
+        token_feature_normalize_mode=token_feature_normalize_mode,
     )
 
     rows = []
@@ -158,6 +160,12 @@ def main() -> None:
     parser.add_argument("--descriptor-token-features", nargs="*", default=["charge"])
     parser.add_argument("--descriptor-molecule-features", nargs="*", default=[])
     parser.add_argument("--charge-xyz-dir", type=Path, default=None)
+    parser.add_argument("--baseline-token-feature-normalize-mode",
+                        default="per_molecule", choices=("per_molecule", "none", "dataset"),
+                        help="must match how the baseline model was trained")
+    parser.add_argument("--descriptor-token-feature-normalize-mode",
+                        default="per_molecule", choices=("per_molecule", "none", "dataset"),
+                        help="must match how the descriptor model was trained")
     parser.add_argument("--alerts", type=Path, default=Path("toxicophores/alerts_kazius29.csv"))
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--num-workers", type=int, default=0)
@@ -193,6 +201,7 @@ def main() -> None:
             args.num_workers,
             args.weight_mode,
             args.target_class,
+            args.baseline_token_feature_normalize_mode,
         )
 
         print(f"fold {fold}: scoring {args.descriptor_config} ...", flush=True)
@@ -206,6 +215,7 @@ def main() -> None:
             args.num_workers,
             args.weight_mode,
             args.target_class,
+            args.descriptor_token_feature_normalize_mode,
         )
 
         # The two configs share a split (same seed, same n_splits), so rows

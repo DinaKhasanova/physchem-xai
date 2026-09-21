@@ -67,6 +67,9 @@ def draw_panel(smiles, values, scale, title, width=520, height=420,
     drawer = rdMolDraw2D.MolDraw2DSVG(width, height)
     opts = drawer.drawOptions()
     opts.clearBackground = True
+    # all atom labels black: RDKit's element palette (green Cl, red O) collides
+    # with the red/green attribution scale and is read as signal.
+    opts.useBWAtomPalette()
     if annotate:
         opts.annotationFontScale = 0.75
         opts.addStereoAnnotation = False

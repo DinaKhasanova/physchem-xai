@@ -1,0 +1,171 @@
+nohup: ignoring input
+loaded 29 alerts from toxicophores/alerts_kazius29.csv
+
+fold 1: scoring baseline ...
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+fold 1: scoring gasteiger ...
+fold 2: scoring baseline ...
+fold 2: scoring gasteiger ...
+fold 3: scoring baseline ...
+fold 3: scoring gasteiger ...
+fold 4: scoring baseline ...
+fold 4: scoring gasteiger ...
+fold 5: scoring baseline ...
+fold 5: scoring gasteiger ...
+
+================================================================
+scored 18754 molecules across folds [1, 2, 3, 4, 5]
+  baseline   accuracy 0.8056
+  descriptor accuracy 0.8092
+
+strata (all molecules):
+  both_correct       14030
+  both_wrong          2500
+  flip_to_correct     1145
+  flip_to_wrong       1079
+
+================================================================
+THE COHORT: baseline wrong, descriptor right, alert-bearing
+================================================================
+  true non-mutagens (baseline said toxic, wrongly) :   251   <-- PRIMARY
+  true mutagens     (baseline said safe, wrongly)  :   353
+  control cohort: both correct, alert-bearing      :  5391
+
+  reverse direction (descriptor broke it):   560
+
+  => one-sample t-test on delta, with the both-correct control
+
+  most frequent alerts in the primary cohort:
+      63  Polycyclic aromatic system (specific)
+      46  Aromatic amine (specific)
+      45  Aliphatic halide (specific)
+      30  Epoxide (specific)
+      30  Aromatic nitro (specific)
+      19  Aromatic azo (specific)
+       9  Unsubstituted heteroatom-bonded heteroatom (specific)
+       7  α,β-Unsaturated aldehyde (additional)
+
+wrote results/xai_pest/flip_cohort_gast.csv
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+1145 molecules in stratum 'flip_to_correct'
+
+  fold 1: 25/245
+  fold 1: 50/245
+  fold 1: 75/245
+  fold 1: 100/245
+  fold 1: 125/245
+  fold 1: 150/245
+  fold 1: 175/245
+  fold 1: 200/245
+  fold 1: 225/245
+fold 1: 245 molecules
+  fold 2: 25/222
+  fold 2: 50/222
+  fold 2: 75/222
+  fold 2: 100/222
+  fold 2: 125/222
+  fold 2: 150/222
+  fold 2: 175/222
+  fold 2: 200/222
+fold 2: 222 molecules
+  fold 3: 25/232
+  fold 3: 50/232
+  fold 3: 75/232
+  fold 3: 100/232
+  fold 3: 125/232
+  fold 3: 150/232
+  fold 3: 175/232
+  fold 3: 200/232
+  fold 3: 225/232
+fold 3: 232 molecules
+  fold 4: 25/204
+  fold 4: 50/204
+  fold 4: 75/204
+  fold 4: 100/204
+  fold 4: 125/204
+  fold 4: 150/204
+  fold 4: 175/204
+  fold 4: 200/204
+fold 4: 204 molecules
+  fold 5: 25/242
+  fold 5: 50/242
+  fold 5: 75/242
+  fold 5: 100/242
+  fold 5: 125/242
+  fold 5: 150/242
+  fold 5: 175/242
+  fold 5: 200/242
+  fold 5: 225/242
+fold 5: 242 molecules
+
+1145 molecules, 21428 atom rows
+
+completeness error (|sum(attr) - delta| / |delta|):
+  median 0.0382   mean 0.2462   90th pct 0.3489
+  OK: the attributions account for the prediction difference
+
+wrote results/xai_pest/ig_baseline_gast.csv
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+1145 molecules in stratum 'flip_to_correct'
+
+fold 1: descriptor baseline (median) = [0.]
+  fold 1: 25/245
+  fold 1: 50/245
+  fold 1: 75/245
+  fold 1: 100/245
+  fold 1: 125/245
+  fold 1: 150/245
+  fold 1: 175/245
+  fold 1: 200/245
+  fold 1: 225/245
+fold 1: 245 molecules
+fold 2: descriptor baseline (median) = [0.]
+  fold 2: 25/222
+  fold 2: 50/222
+  fold 2: 75/222
+  fold 2: 100/222
+  fold 2: 125/222
+  fold 2: 150/222
+  fold 2: 175/222
+  fold 2: 200/222
+fold 2: 222 molecules
+fold 3: descriptor baseline (median) = [0.]
+  fold 3: 25/232
+  fold 3: 50/232
+  fold 3: 75/232
+  fold 3: 100/232
+  fold 3: 125/232
+  fold 3: 150/232
+  fold 3: 175/232
+  fold 3: 200/232
+  fold 3: 225/232
+fold 3: 232 molecules
+fold 4: descriptor baseline (median) = [0.]
+  fold 4: 25/204
+  fold 4: 50/204
+  fold 4: 75/204
+  fold 4: 100/204
+  fold 4: 125/204
+  fold 4: 150/204
+  fold 4: 175/204
+  fold 4: 200/204
+fold 4: 204 molecules
+fold 5: descriptor baseline (median) = [0.]
+  fold 5: 25/242
+  fold 5: 50/242
+  fold 5: 75/242
+  fold 5: 100/242
+  fold 5: 125/242
+  fold 5: 150/242
+  fold 5: 175/242
+  fold 5: 200/242
+  fold 5: 225/242
+fold 5: 242 molecules
+
+1145 molecules, 21428 atom rows
+
+completeness error (|sum(attr) - delta| / |delta|):
+  median nan   mean nan   90th pct nan
+  OK: the attributions account for the prediction difference
+
+wrote results/xai_pest/ig_gasteiger_pest.csv

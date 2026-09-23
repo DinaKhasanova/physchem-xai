@@ -1,0 +1,47 @@
+nohup: ignoring input
+loaded 29 alerts from toxicophores/alerts_kazius29.csv
+
+fold 1: scoring baseline ...
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+fold 1: scoring gasteiger ...
+
+================================================================
+scored 1451 molecules across folds [1]
+  baseline   accuracy 0.7602
+  descriptor accuracy 0.7808
+
+strata (all molecules):
+  both_correct        1001
+  both_wrong           216
+  flip_to_correct      132
+  flip_to_wrong        102
+
+================================================================
+THE COHORT: baseline wrong, descriptor right, alert-bearing
+================================================================
+  true non-mutagens (baseline said toxic, wrongly) :    12   <-- PRIMARY
+  true mutagens     (baseline said safe, wrongly)  :    51
+  control cohort: both correct, alert-bearing      :   569
+
+  reverse direction (descriptor broke it):    51
+
+  => too small for statistics -- write 'we examined all 12 such cases'
+
+  most frequent alerts in the primary cohort:
+       4  Polycyclic aromatic system (specific)
+       3  Aromatic nitro (specific)
+       1  Epoxide (specific)
+       1  Unsubstituted heteroatom-bonded heteroatom (specific)
+       1  Aliphatic halide (specific)
+       1  Aromatic azo (specific)
+       1  Aromatic amine (specific)
+
+wrote results/xai_pest/ames_check_fold1.csv
+baseline auc=0.8422 bal=0.7606
+descriptor auc=0.8587 bal=0.7753
+
+recorded fold-1 rows:
+  baseline accuracy,balanced_accuracy,roc_auc,sensitivity,specificity,precision,f1,tn,fp,fn,tp,best_val_loss,best_epoch,stopped_epoch,fold
+  baseline 0.7601654031702274,0.760601505199257,0.842216434631073,0.7556962025316456,0.7655068078668684,0.7938829787234043,0.77431906614786,506,155,193,597,0.4769235849380493,3,7,1
+  gasteiger accuracy,balanced_accuracy,roc_auc,sensitivity,specificity,precision,f1,tn,fp,fn,tp,best_val_loss,best_epoch,stopped_epoch,fold
+  gasteiger 0.7808407994486561,0.7752657078841034,0.8587506463164749,0.8379746835443038,0.7125567322239031,0.7769953051643192,0.8063337393422655,471,190,128,662,0.43654483556747437,4,8,1

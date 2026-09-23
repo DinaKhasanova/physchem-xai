@@ -1,0 +1,56 @@
+nohup: ignoring input
+fold 1 ...
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+fold 2 ...
+fold 3 ...
+fold 4 ...
+fold 5 ...
+
+decomposed 7251 molecules -- no exclusions
+
+====================================================================================
+DESCRIPTOR PATHWAY CONTRIBUTION  (gate x aux_delta, in logits)
+====================================================================================
+  stratum                         n     gate    contrib  |contrib|  prob shift
+  --------------------------------------------------------------------------
+  flip_to_correct               600    0.250    -0.2582     0.8752     -0.0586
+  flip_to_wrong                 497    0.252    -0.1901     0.6507     -0.0458
+  both_correct                 5143    0.251    +0.0565     1.9709     -0.0298
+  both_wrong                   1011    0.247    -0.1250     1.1513     -0.0440
+
+====================================================================================
+BY DIRECTION — does the descriptor branch push the right way?
+====================================================================================
+  group                             n  contribution     p vs 0   expected
+  ------------------------------------------------------------------------------
+  FP corrected (true safe)        228       -1.3927    2.6e-61 *** negative (pull away from toxic)
+  FN corrected (true toxic)       372       +0.4372    4.9e-33 *** positive (pull toward toxic)
+  broke it, true safe             333       +0.2576    3.1e-18 *** positive = wrong direction
+  broke it, true toxic            164       -1.0992    2.3e-50 *** negative = wrong direction
+  both correct                   5143       +0.0565      0.086     ~0
+
+====================================================================================
+ALERT-BEARING ONLY (the cohort the attribution analysis uses)
+====================================================================================
+  group                             n  contribution     p vs 0
+  ------------------------------------------------------------
+  FP corrected (true safe)         76       -1.1396    1.3e-22 ***
+  FN corrected (true toxic)       218       +0.4757    2.4e-22 ***
+  broke it, true safe             147       +0.3359      2e-11 ***
+  broke it, true toxic            106       -1.0204    2.8e-30 ***
+  both correct                   2932       +1.5474          0 ***
+
+wrote results/xai/gate_decomposition.csv
+
+====================================================================================
+HOW TO READ THIS
+====================================================================================
+  FP corrected negative and FN corrected positive
+      -> the descriptor branch pushes each molecule the right way. It is
+         causing the corrections, not merely correlated with them.
+  Both near zero
+      -> the descriptor branch contributes little; the gain comes from
+         elsewhere and no attribution method will show otherwise.
+  'broke it' rows large in the wrong direction
+      -> the branch is confident and wrong there, which is a finding in
+         itself and belongs in the paper alongside the corrections.

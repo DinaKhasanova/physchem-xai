@@ -1,0 +1,82 @@
+nohup: ignoring input
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+600 molecules in stratum 'flip_to_correct'
+
+  fold 1: 25/137
+  fold 1: 50/137
+  fold 1: 75/137
+  fold 1: 100/137
+  fold 1: 125/137
+fold 1: 137 molecules
+  fold 2: 25/127
+  fold 2: 50/127
+  fold 2: 75/127
+  fold 2: 100/127
+  fold 2: 125/127
+fold 2: 127 molecules
+  fold 3: 25/117
+  fold 3: 50/117
+  fold 3: 75/117
+  fold 3: 100/117
+fold 3: 117 molecules
+  fold 4: 25/115
+  fold 4: 50/115
+  fold 4: 75/115
+  fold 4: 100/115
+fold 4: 115 molecules
+  fold 5: 25/104
+  fold 5: 50/104
+  fold 5: 75/104
+  fold 5: 100/104
+fold 5: 104 molecules
+
+600 molecules, 10267 atom rows
+
+completeness error (|sum(attr) - delta| / |delta|):
+  median 0.0037   mean 0.0295   90th pct 0.0370
+  OK: the attributions account for the prediction difference
+
+wrote results/xai/ig_baseline.csv
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+600 molecules in stratum 'flip_to_correct'
+
+fold 1: descriptor baseline (median) = [0.1707]
+  fold 1: 25/137
+  fold 1: 50/137
+  fold 1: 75/137
+  fold 1: 100/137
+  fold 1: 125/137
+fold 1: 137 molecules
+fold 2: descriptor baseline (median) = [0.1641]
+  fold 2: 25/127
+  fold 2: 50/127
+  fold 2: 75/127
+  fold 2: 100/127
+  fold 2: 125/127
+fold 2: 127 molecules
+fold 3: descriptor baseline (median) = [0.1702]
+  fold 3: 25/117
+  fold 3: 50/117
+  fold 3: 75/117
+  fold 3: 100/117
+fold 3: 117 molecules
+fold 4: descriptor baseline (median) = [0.1685]
+  fold 4: 25/115
+  fold 4: 50/115
+  fold 4: 75/115
+  fold 4: 100/115
+fold 4: 115 molecules
+fold 5: descriptor baseline (median) = [0.1744]
+  fold 5: 25/104
+  fold 5: 50/104
+  fold 5: 75/104
+  fold 5: 100/104
+fold 5: 104 molecules
+
+600 molecules, 10267 atom rows
+
+completeness error (|sum(attr) - delta| / |delta|):
+  median nan   mean nan   90th pct nan
+  OK: the attributions account for the prediction difference
+
+wrote results/xai/ig_gasteiger.csv

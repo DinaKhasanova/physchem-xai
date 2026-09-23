@@ -1,0 +1,326 @@
+nohup: ignoring input
+[11:28] baseline already done, skipping
+[11:28] gasteiger already done, skipping
+[11:28] physchem_tok already done, skipping
+ALL DONE Mon Sep 14 11:28:17 UTC 2026
+[11:28] === neighbors ===
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.432                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 6/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:33 • 0:00:00 0.59it/s val_loss: 0.443  
+                                                               val_accuracy:    
+                                                               0.811 train_loss:
+                                                               0.285            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8179152011871338     │
+│         test_loss         │    0.42229408025741577    │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:08 • 0:00:00 2.11it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.432                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 8/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:19 • 0:00:00 0.50it/s val_loss: 0.566  
+                                                               val_accuracy:    
+                                                               0.821 train_loss:
+                                                               0.217            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8181818127632141     │
+│         test_loss         │    0.42777085304260254    │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:03 • 0:00:00 2.28it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.432                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 5/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:30 • 0:00:00 0.54it/s val_loss: 0.548  
+                                                               val_accuracy:    
+                                                               0.814 train_loss:
+                                                               0.322            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │     0.799253523349762     │
+│         test_loss         │    0.45202669501304626    │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:14 • 0:00:00 2.05it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.432                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 6/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:16 • 0:00:00 0.60it/s val_loss: 0.449  
+                                                               val_accuracy:    
+                                                               0.818 train_loss:
+                                                               0.285            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8157824873924255     │
+│         test_loss         │    0.4252453148365021     │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:13 • 0:00:00 1.88it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.432                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 7/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:19 • 0:00:00 0.57it/s val_loss: 0.517  
+                                                               val_accuracy:    
+                                                               0.802 train_loss:
+                                                               0.250            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8213333487510681     │
+│         test_loss         │    0.4318367540836334     │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:06 • 0:00:00 2.05it/s 
+Saved fold metrics to runs_pest/neighbors/cross_validation_fold_metrics.csv
+Saved cross-validation summary to runs_pest/neighbors/cross_validation_summary.csv
+[03:34] neighbors done. disk: 3.3G free
+[03:34] === gast_neigh ===
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.439                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+Compiling the model with `torch.compile` and using a `torch.cpu` device is not supported. Falling back to non-compiled mode.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 8/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:34 • 0:00:00 0.51it/s val_loss: 0.524  
+                                                               val_accuracy:    
+                                                               0.818 train_loss:
+                                                               0.215            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8365769386291504     │
+│         test_loss         │     0.408264696598053     │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:10 • 0:00:00 2.12it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.439                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 7/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:29 • 0:00:00 0.56it/s val_loss: 0.502  
+                                                               val_accuracy:    
+                                                               0.808 train_loss:
+                                                               0.243            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8243135213851929     │
+│         test_loss         │     0.419887512922287     │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:02 • 0:00:00 2.28it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.439                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 7/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:05 • 0:00:00 0.53it/s val_loss: 0.476  
+                                                               val_accuracy:    
+                                                               0.814 train_loss:
+                                                               0.254            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8091175556182861     │
+│         test_loss         │    0.45165514945983887    │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:10 • 0:00:00 2.08it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.439                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 6/14 ━━━━━━━━━━━━━━━━ 821/821 0:23:59 • 0:00:00 0.59it/s val_loss: 0.453  
+                                                               val_accuracy:    
+                                                               0.813 train_loss:
+                                                               0.284            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8077846169471741     │
+│         test_loss         │    0.43176335096359253    │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:09 • 0:00:00 2.08it/s 
+Seed set to 42
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+[optimizer] encoder=74 lr=2e-05 | fusion=16 lr=0.002 | head=6 lr=2e-05
+┏━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name    ┃ Type                              ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ model   │ SmilesAnchorResidualAuxClassifier │ 15.6 M │ train │     0 │
+│ 1 │ loss_fn │ CrossEntropyLoss                  │      0 │ train │     0 │
+└───┴─────────┴───────────────────────────────────┴────────┴───────┴───────┘
+Trainable params: 15.6 M                                                        
+Non-trainable params: 0                                                         
+Total params: 15.6 M                                                            
+Total estimated model params size (MB): 62.439                                  
+Modules in train mode: 23                                                       
+Modules in eval mode: 163                                                       
+Total FLOPs: 0                                                                  
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/home/dina_khasanova_2000/physchem-xai_upload/.venv/lib/python3.11/site-packages/lightning/pytorch/loops/fit_loop.py:538: Found 163 module(s) in eval mode at the start of training. This may lead to unexpected behavior during training. If this is intentional, you can ignore this warning.
+Epoch 6/14 ━━━━━━━━━━━━━━━━ 821/821 0:24:04 • 0:00:00 0.60it/s val_loss: 0.459  
+                                                               val_accuracy:    
+                                                               0.817 train_loss:
+                                                               0.284            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃        Test metric        ┃       DataLoader 0        ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│       test_accuracy       │    0.8159999847412109     │
+│         test_loss         │    0.4250237047672272     │
+└───────────────────────────┴───────────────────────────┘
+Testing ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 235/235 0:02:07 • 0:00:00 2.00it/s 
+Saved fold metrics to runs_pest/gast_neigh/cross_validation_fold_metrics.csv
+Saved cross-validation summary to runs_pest/gast_neigh/cross_validation_summary.csv
+[20:32] gast_neigh done. disk: 2.6G free
+ALL DONE Tue Sep 15 20:32:42 UTC 2026

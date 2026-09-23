@@ -21,8 +21,10 @@ compounds, four of which are marked as excluded.
 
 ## Provenance
 
-Calculations were performed with GFN2-xTB as implemented in ULYSSES. Geometries were
-generated from SMILES and optimised prior to the single-point calculation.
+Calculations were performed with GFN2-xTB as implemented in ULYSSES. Three-dimensional
+structures were generated from SMILES with CORINA Classic (MN-AM), protonation states
+were assigned with Schrödinger Epik at pH 7.4 ± 0.2, and the resulting geometries were
+optimised prior to the single-point calculation.
 
 Three descriptor families are parsed from these files:
 
@@ -34,8 +36,9 @@ Three descriptor families are parsed from these files:
 
 ## Excluded compounds
 
-Four of the 7,255 TDC compounds have no calculation, because GFN2-xTB did not produce
-a usable result — hypervalent species and non-convergent cases:
+Four of the 7,255 TDC compounds have no calculation. Protonation state assignment did
+not return a usable structure for them, so they never entered the GFN2-xTB step —
+hypervalent species and other unusual oxidation states:
 
 | Drug_ID | SMILES |
 |---|---|

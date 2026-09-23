@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fig. 2: Early Fusion Architecture</title>
+    <style>
+        :root {
+            --bg-light: #ffffff;
+            --bg-surface: #f8f7f5;
+            --border: #d4d0c8;
+            --text-primary: #2b2520;
+            --text-secondary: #6b6560;
+            --accent-primary: #1e5a96;
+            --accent-light: #e8f0f7;
+            --accent-secondary: #d4583a;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg-light: #1a1815;
+                --bg-surface: #2a2520;
+                --border: #4a4540;
+                --text-primary: #f5f3f0;
+                --text-secondary: #c9c4bf;
+                --accent-primary: #6ba3d4;
+                --accent-light: #1a3a52;
+                --accent-secondary: #e8946b;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg-light: #1a1815;
+            --bg-surface: #2a2520;
+            --border: #4a4540;
+            --text-primary: #f5f3f0;
+            --text-secondary: #c9c4bf;
+            --accent-primary: #6ba3d4;
+            --accent-light: #1a3a52;
+            --accent-secondary: #e8946b;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--accent-primary);
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stage {
+            display: flex;
+            align-items: stretch;
+            gap: 15px;
+        }
+
+        .stage.vertical {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .box {
+            background: var(--accent-light);
+            border: 2px solid var(--accent-primary);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--accent-primary);
+        }
+
+        .box.data {
+            background: #fff3e0;
+            border-color: #f57c00;
+            color: #e65100;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .box.data {
+                background: #4a2410;
+                border-color: #ff8f00;
+                color: #ffb74d;
+            }
+        }
+
+        :root[data-theme="dark"] .box.data {
+            background: #4a2410;
+            border-color: #ff8f00;
+            color: #ffb74d;
+        }
+
+        .box.transform {
+            background: #f3e5f5;
+            border-color: #7b1fa2;
+            color: #7b1fa2;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .box.transform {
+                background: #3a1a5a;
+                border-color: #ba68c8;
+                color: #ba68c8;
+            }
+        }
+
+        :root[data-theme="dark"] .box.transform {
+            background: #3a1a5a;
+            border-color: #ba68c8;
+            color: #ba68c8;
+        }
+
+        .box.operation {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            color: #1565c0;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .box.operation {
+                background: #1a3a52;
+                border-color: #6ba3d4;
+                color: #90caf9;
+            }
+        }
+
+        :root[data-theme="dark"] .box.operation {
+            background: #1a3a52;
+            border-color: #6ba3d4;
+            color: #90caf9;
+        }
+
+        .box.output {
+            background: #e8f5e9;
+            border-color: #388e3c;
+            color: #2e7d32;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .box.output {
+                background: #1b3a1b;
+                border-color: #66bb6a;
+                color: #81c784;
+            }
+        }
+
+        :root[data-theme="dark"] .box.output {
+            background: #1b3a1b;
+            border-color: #66bb6a;
+            color: #81c784;
+        }
+
+        .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 20px;
+            height: 30px;
+        }
+
+        .arrow.vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            height: auto;
+            min-height: 40px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid var(--border);
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 15px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .details {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .details code {
+            background: var(--bg-surface);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-secondary);
+            font-size: 11px;
+        }
+
+        .key-insight {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent-primary);
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        .note {
+            color: var(--text-secondary);
+            font-size: 11px;
+            margin-top: 10px;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .stage {
+                gap: 10px;
+            }
+
+            .box {
+                font-size: 12px;
+                padding: 12px;
+            }
+
+            h2 {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fig. 2: Early Fusion Architecture for Mutagenicity Prediction</h2>
+
+        <div class="diagram">
+            <!-- Input -->
+            <div class="stage">
+                <div class="box data">SMILES Input<br><span style="font-size: 11px; opacity: 0.8;">e.g., "C1CO1"</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Tokenization -->
+            <div class="stage">
+                <div class="box transform">Character-level Tokenization<br><span style="font-size: 11px; opacity: 0.8;">[CLS], C, 1, C, O, 1, [SEP]</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Parallel inputs -->
+            <div class="stage" style="gap: 30px;">
+                <div class="col">
+                    <div class="box data">Token Embeddings<br><span style="font-size: 11px; opacity: 0.8;">from pretrained MolEncoder</span></div>
+                    <div class="label">Shape: (seq_len, hidden_size)</div>
+                </div>
+                <div class="col">
+                    <div class="box data">Per-token Descriptors<br><span style="font-size: 11px; opacity: 0.8;">charge, polarizability, etc.</span></div>
+                    <div class="label">Shape: (seq_len, token_feature_dim)</div>
+                </div>
+            </div>
+
+            <!-- Descriptor processing -->
+            <div class="stage">
+                <div style="flex: 1;"></div>
+                <div class="arrow">→</div>
+                <div class="box transform" style="flex: 2;">Descriptor Standardization<br><span style="font-size: 11px; opacity: 0.8;">(x - mean) / std</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Feature embedding MLP -->
+            <div class="stage">
+                <div style="flex: 1;"></div>
+                <div class="arrow">→</div>
+                <div class="box transform" style="flex: 2;">Feature Embedding MLP<br><span style="font-size: 11px; opacity: 0.8;">Linear + GELU + Linear<br>(zero-initialized output)</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Gate -->
+            <div class="stage">
+                <div style="flex: 1;"></div>
+                <div class="arrow">×</div>
+                <div class="box operation">Learned Gate<br><span style="font-size: 11px; opacity: 0.8;">learnable scalar ∈ ℝ</span></div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Injection -->
+            <div class="stage">
+                <div style="flex: 1;"></div>
+                <div class="arrow">→</div>
+                <div class="box operation" style="flex: 2;">Injection<br><span style="font-size: 11px; opacity: 0.8;">embeddings + gate × injection</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Transformer -->
+            <div class="stage">
+                <div class="box transform">MolEncoder Transformer<br><span style="font-size: 11px; opacity: 0.8;">self-attention on<br>descriptor-aware embeddings</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- CLS extraction -->
+            <div class="stage">
+                <div class="box operation">Extract CLS Token<br><span style="font-size: 11px; opacity: 0.8;">hidden state of [CLS] token</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Classification head -->
+            <div class="stage">
+                <div class="box transform">Classification Head<br><span style="font-size: 11px; opacity: 0.8;">LayerNorm + Linear + GELU<br>+ Dropout + Linear</span></div>
+                <div class="arrow">→</div>
+                <div style="flex: 1;"></div>
+            </div>
+
+            <!-- Output -->
+            <div class="stage">
+                <div class="box output">Prediction<br><span style="font-size: 11px; opacity: 0.8;">P(mutagenic | x)</span></div>
+                <div style="flex: 1;"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Key Features of Early Fusion</div>
+            <div class="details">
+                <strong>✓ Descriptor Injection Point:</strong> Descriptors are injected <code>BEFORE</code> transformer layers, not after.
+                <br><br>
+                <strong>✓ Self-Attention Influence:</strong> Self-attention operates on descriptor-aware embeddings, so chemical information influences every layer.
+                <br><br>
+                <strong>✓ Feature Embedding MLP:</strong> Raw descriptors are projected to hidden space via MLP with zero-initialized output layer, ensuring the model starts from SMILES-only baseline.
+                <br><br>
+                <strong>✓ Learned Gate:</strong> A trainable scalar parameter (<code>feature_gate</code>) learns to scale the contribution of descriptors globally.
+                <br><br>
+                <strong>✓ No Separate Branches:</strong> Global descriptors are broadcast per-token rather than entering through separate fusion branch (earlier experiments showed this reduces performance).
+                <br><br>
+                <div class="key-insight">
+                    <strong>Why Early Fusion Works Better:</strong> Late-fusion approaches (descriptor-guided pooling, separate branches) were measured to be inert—changing charges by ±0.001 ROC AUC. Early fusion allows descriptors to influence self-attention, resulting in 0.87 to 0.88 ROC AUC improvements over baseline.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Implementation Details (src/molencoder/model.py)</div>
+            <div class="details">
+                <code>self.feature_embedding = nn.Sequential(</code><br>
+                <code style="margin-left: 20px;">nn.Linear(token_feature_dim, hidden_size),</code><br>
+                <code style="margin-left: 20px;">nn.GELU(),</code><br>
+                <code style="margin-left: 20px;">nn.Linear(hidden_size, hidden_size),</code><br>
+                <code>)</code><br>
+                <code>nn.init.zeros_(self.feature_embedding[-1].weight)</code><br>
+                <code>self.feature_gate = nn.Parameter(torch.tensor(1.0))</code>
+                <br><br>
+                <code>outputs = self.encoder(</code><br>
+                <code style="margin-left: 20px;">inputs_embeds=embeddings + self.feature_gate * injection,</code><br>
+                <code style="margin-left: 20px;">attention_mask=attention_mask,</code><br>
+                <code>)</code>
+                <div class="note">
+                    <strong>Note:</strong> Zero initialization of output layer ensures initial contribution is zero; model learns to use descriptors from baseline SMILES-only behavior.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Comparison with Superseded Approaches</div>
+            <div class="details">
+                <strong>Late Fusion (Previous Attempt):</strong> Descriptors processed separately via <code>token_proj</code> and <code>molecule_proj</code>, concatenated only at classification head. Result: <strong>ROC AUC 0.840–0.851</strong>, inert to descriptor modifications.
+                <br><br>
+                <strong>Early Fusion (Current Implementation):</strong> Descriptors injected into embeddings before transformer. Result: <strong>ROC AUC 0.874–0.876</strong>, significant improvement in performance and interpretability.
+                <br><br>
+                <strong>Broadcasting vs. Separate Branch:</strong> Global descriptors (e.g., HOMO-LUMO gap) perform better when broadcast to every token rather than entering through separate fusion branch (earlier runs: 0.844 vs. 0.870).
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -113,8 +113,23 @@ def _heavy_neighbor_counts(smiles: str, distance_cutoff: int) -> list[float]:
     return counts
 
 
+def _charge_variant_builder(mode: str):
+    """Fallback builder (Gasteiger source). build_token_feature_matrix overrides
+    this with the xTB source when --charge-xyz-dir is supplied."""
+    def _build(smiles: str) -> list[float]:
+        from downstream.toxicity.charge_decomposition import decompose_charges
+        return decompose_charges(smiles, _gasteiger_atom_charges(smiles),
+                                 mode=mode, source="gasteiger")
+    return _build
+
+
+CHARGE_VARIANTS = {"charge_z": "z", "charge_typed": "typed", "charge_resid": "resid"}
+
 FEATURE_BUILDERS = {
     "charge": _gasteiger_atom_charges,
+    "charge_z": _charge_variant_builder("z"),
+    "charge_typed": _charge_variant_builder("typed"),
+    "charge_resid": _charge_variant_builder("resid"),
     "mr": _mr_atom_contributions,
     "polarizability": _mr_atom_contributions,
     "neighbor": lambda smiles: _heavy_neighbor_counts(smiles, distance_cutoff=3),
@@ -417,6 +432,9 @@ def _polarizability_values_for_smiles(
 
 TOKEN_FEATURE_SCALES = {
     "charge": 0.120,
+    "charge_z": 1.0,
+    "charge_typed": 1.0,
+    "charge_resid": 1.0,
     "polarizability": 0.929,
     "neighbor_k2": 0.424,
     "neighbor_k3": 0.456,
@@ -438,6 +456,9 @@ TOKEN_FEATURE_SCALES = {
 
 TOKEN_FEATURE_MEANS = {
     "charge": -0.041,
+    "charge_z": 0.0,
+    "charge_typed": 0.0,
+    "charge_resid": 0.0,
     "polarizability": 3.242,
     "neighbor_k2": 1.659,
     "neighbor_k3": 2.050,
@@ -527,12 +548,19 @@ def build_token_feature_matrix(
                 f"Unsupported feature '{feature_name}'. Choices: {', '.join(available_feature_names())}"
             )
 
-        if feature_name == "charge":
+        if feature_name == "charge" or feature_name in CHARGE_VARIANTS:
             atom_values = _charge_values_for_smiles(
                 smiles=smiles,
                 xyz_dir=xyz_dir,
                 xyz_index=xyz_index,
             )
+            if feature_name in CHARGE_VARIANTS:
+                from downstream.toxicity.charge_decomposition import decompose_charges
+                atom_values = decompose_charges(
+                    smiles, atom_values,
+                    mode=CHARGE_VARIANTS[feature_name],
+                    source="xtb" if xyz_dir is not None else "gasteiger",
+                )
         elif feature_name == "polarizability":
             atom_values = _polarizability_values_for_smiles(
                 smiles=smiles,
@@ -563,6 +591,8 @@ def build_token_feature_matrix(
     for feature_index, feature_name in enumerate(names):
         if feature_name == "charge":
             matrix[:, feature_index] = torch.clamp(matrix[:, feature_index], -2.0, 2.0)
+        if feature_name in CHARGE_VARIANTS:
+            matrix[:, feature_index] = torch.clamp(matrix[:, feature_index], -6.0, 6.0)
         if feature_name.startswith("neighbor"):
             matrix[:, feature_index] = torch.log1p(matrix[:, feature_index].clamp(min=0.0))
     if normalize_mode == "per_molecule":

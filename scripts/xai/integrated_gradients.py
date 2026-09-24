@@ -43,7 +43,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from downstream.toxicity.compute_occlusion import create_loader, load_split_dataframe
+from downstream.toxicity.attribution_base import create_loader, load_split_dataframe
 from downstream.toxicity.features import molecule_feature_dimension
 from downstream.toxicity.xai.common import char_to_atom_index, resolve_device
 

@@ -36,8 +36,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pandas as pd
 import torch
 
-from downstream.toxicity.compute_occlusion import (
-    OcclusionConfig,
+from downstream.toxicity.attribution_base import (
+    AttributionConfig,
     create_loader,
     load_split_dataframe,
 )

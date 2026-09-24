@@ -1,11 +1,12 @@
 """Occlusion that keeps the molecule consistent with the perturbation.
 
-Two problems with the occlusion currently used in the manuscript, both visible
-in ``compute_occlusion.py`` and ``compute_global_occlusion.py``:
+Occlusion is no longer used in the manuscript; integrated gradients replaced it
+(``scripts/xai/integrated_gradients.py``). This module is kept as the record of
+why. Two problems affected the occlusion implementation in ``attribution_base.py``:
 
 1. **Token occlusion does not update the molecule descriptors.** When a token is
    replaced by the padding id, ``molecule_features`` is passed through unchanged
-   (``compute_occlusion.py``, the ``molecule_feature_vector`` argument). The
+   (``attribution_base.py``, the ``molecule_feature_vector`` argument). The
    classifier therefore still receives the true molecular weight, logP, TPSA and
    orbital energies of the *intact* molecule. Any pathway that runs through the
    descriptors is invisible to the attribution, and the measured effect of
@@ -15,7 +16,9 @@ in ``compute_occlusion.py`` and ``compute_global_occlusion.py``:
 
 2. **Global occlusion sets descriptors to zero.** Zero is not a neutral value for
    scaled descriptors (see :mod:`baselines`); it is an out-of-distribution point,
-   so the score conflates importance with extrapolation.
+   so the score conflates importance with extrapolation. The module that performed
+   it has been removed; integrated gradients instead integrates descriptors from
+   their per-feature training-set median.
 
 This module provides consistent alternatives.
 
@@ -61,8 +64,8 @@ from pathlib import Path
 import pandas as pd
 import torch
 
-from ..compute_occlusion import (
-    OcclusionConfig,
+from ..attribution_base import (
+    AttributionConfig,
     create_loader,
     load_lightning_model,
     load_split_dataframe,
@@ -91,7 +94,7 @@ QUANTUM_MOLECULE_FEATURES = frozenset({"orbital"})
 
 @dataclass(slots=True)
 class CounterfactualConfig:
-    base: OcclusionConfig
+    base: AttributionConfig
     token_mode: str = "recompute"
     global_mode: str = "marginal"
     marginal_samples: int = 16
@@ -568,7 +571,7 @@ def parse_args() -> CounterfactualConfig:
     parser.add_argument("--seed", type=int, default=0)
     args = parser.parse_args()
 
-    base = OcclusionConfig(
+    base = AttributionConfig(
         checkpoint_path=args.checkpoint_path,
         output_dir=args.output_dir,
         split_name=args.split_name,

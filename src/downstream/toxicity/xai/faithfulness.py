@@ -40,8 +40,8 @@ from pathlib import Path
 import pandas as pd
 import torch
 
-from ..compute_occlusion import (
-    OcclusionConfig,
+from ..attribution_base import (
+    AttributionConfig,
     create_loader,
     load_lightning_model,
     load_split_dataframe,
@@ -92,7 +92,7 @@ def _occlude_atoms(
 
 
 def evaluate(
-    config: OcclusionConfig,
+    config: AttributionConfig,
     max_molecules: int | None = None,
     top_k_fraction: float = 0.2,
     n_randomizations: int = 3,
@@ -338,7 +338,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    config = OcclusionConfig(
+    config = AttributionConfig(
         checkpoint_path=args.checkpoint_path,
         output_dir=args.output_dir,
         split_name=args.split_name,

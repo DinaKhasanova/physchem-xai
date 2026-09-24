@@ -44,8 +44,8 @@ from pathlib import Path
 import pandas as pd
 import torch
 
-from ..compute_occlusion import (
-    OcclusionConfig,
+from ..attribution_base import (
+    AttributionConfig,
     create_loader,
     load_lightning_model,
     load_split_dataframe,
@@ -144,7 +144,7 @@ def _apply_token_ablation(features: torch.Tensor, attention_mask: torch.Tensor, 
 
 
 def run_ablations(
-    config: OcclusionConfig,
+    config: AttributionConfig,
     ablations: tuple[str, ...] = DEFAULT_ABLATIONS,
     seed: int = 0,
 ) -> pd.DataFrame:
@@ -282,7 +282,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    config = OcclusionConfig(
+    config = AttributionConfig(
         checkpoint_path=args.checkpoint_path,
         output_dir=args.output_dir,
         split_name=args.split_name,

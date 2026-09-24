@@ -1,6 +1,6 @@
 """Load SmilesAnchorResidualAuxClassifier checkpoints for inference.
 
-``compute_occlusion.load_lightning_model`` predates the fusion architecture: it
+``attribution_base.load_lightning_model`` predates the fusion architecture: it
 probes ``model.classifier.0.weight``, which does not exist in a
 ``SmilesAnchorResidualAuxClassifier`` checkpoint (that has ``base_proj`` /
 ``base_classifier`` / ``aux_proj`` / ``aux_classifier`` / ``gate_mlp``).
@@ -19,7 +19,7 @@ from pathlib import Path
 import torch
 
 from downstream.toxicity.finetune import SmilesAnchorResidualAuxClassifier
-from downstream.toxicity.compute_occlusion import ToxicityLightningModule
+from downstream.toxicity.attribution_base import ToxicityLightningModule
 from molencoder.config import MolEncoderConfig
 from molencoder.model import MolEncoderWrapper
 

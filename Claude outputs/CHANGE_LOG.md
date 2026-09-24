@@ -1,6 +1,7 @@
 # Change log — Article2-XAI_DFT_2_revised.docx
 
-Every change is **bold** in the document. Unbolded text is yours, untouched.
+Every change is in **dark blue** in the document. Black text is yours, untouched.
+Verified run by run against your original upload: 0 changed runs left unmarked, 0 original runs wrongly marked.
 Each entry names the file in `physchem-xai` that justifies it.
 
 ---

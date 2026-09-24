@@ -433,7 +433,7 @@ def collect_attribution_concentrations(df: pd.DataFrame) -> None:
         print(summary.to_string())
     else:
         print("  No occlusion data found for the key compounds.")
-        print("  → To generate occlusion maps, run compute_occlusion.py for both models.")
+        print("  → To generate occlusion maps, run attribution_base.py for both models.")
         print("  → Once available, re-run this script to populate attribution_concentration.csv")
 
         # Still save the target compounds so the user knows which ones to prioritize

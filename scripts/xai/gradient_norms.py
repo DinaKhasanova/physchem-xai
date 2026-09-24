@@ -32,7 +32,7 @@ import torch.nn.functional as F
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from downstream.toxicity.compute_occlusion import create_loader, load_split_dataframe
+from downstream.toxicity.attribution_base import create_loader, load_split_dataframe
 from downstream.toxicity.features import molecule_feature_dimension
 from downstream.toxicity.finetune import SmilesAnchorResidualAuxClassifier
 from downstream.toxicity.train import ToxicityLightningModule

@@ -22,7 +22,7 @@ class OchemCvConfig:
     n_splits: int = 5
 
 
-def _load_ochem_predictions(config: OchemCvConfig) -> dict[str, int]:
+def _load_ochem_predictions(config: OchemCvConfig) -> dict[str, dict[str, int]]:
     ochem_df = pd.read_excel(config.ochem_path)
     if config.smiles_column not in ochem_df.columns:
         raise ValueError(f"{config.ochem_path} does not contain the column '{config.smiles_column}'.")
@@ -30,7 +30,8 @@ def _load_ochem_predictions(config: OchemCvConfig) -> dict[str, int]:
     if not assay_columns:
         raise ValueError("No assay columns found in the OCHEM file.")
 
-    def to_binary_prediction(row: pd.Series) -> int:
+    def alert_count(row: pd.Series) -> int:
+        count = 0
         for value in row[assay_columns]:
             if pd.isna(value):
                 continue
@@ -38,19 +39,34 @@ def _load_ochem_predictions(config: OchemCvConfig) -> dict[str, int]:
                 continue
             try:
                 if float(value) == 1.0:
-                    return 1
+                    count += 1
             except (TypeError, ValueError):
                 continue
-        return 0
+        return count
 
+    counts = ochem_df.apply(alert_count, axis=1).astype(int)
     smiles_df = pd.DataFrame(
         {
             "smiles": ochem_df[config.smiles_column].astype(str),
-            "label": ochem_df.apply(to_binary_prediction, axis=1).astype(int),
+            # Binary positive label (>=1 ToxAlert fired): used for balanced
+            # accuracy, sensitivity, specificity, precision and F1.
+            "label": (counts > 0).astype(int),
+            # Number of ToxAlerts fired: used as the continuous ranking score
+            # for ROC AUC. A binary 0/1 score makes ROC AUC degenerate (it
+            # collapses to balanced accuracy), so the alert count is used.
+            "count": counts,
         }
     )
     cleaned = clean_smiles_dataframe(smiles_df)
-    return dict(zip(cleaned["smiles"].tolist(), cleaned["label"].astype(int).tolist(), strict=True))
+    return {
+        str(smiles): {"label": int(label), "count": int(count)}
+        for smiles, label, count in zip(
+            cleaned["smiles"].tolist(),
+            cleaned["label"].astype(int).tolist(),
+            cleaned["count"].astype(int).tolist(),
+            strict=True,
+        )
+    }
 
 
 def evaluate_ochem_cv(config: OchemCvConfig) -> tuple[Path, Path]:
@@ -64,8 +80,11 @@ def evaluate_ochem_cv(config: OchemCvConfig) -> tuple[Path, Path]:
 
     for fold_index, (_, test_indices) in enumerate(outer_cv.split(frame, labels), start=1):
         test_frame = frame.iloc[test_indices].reset_index(drop=True)
-        predictions = [int(ochem_predictions.get(smiles, 0)) for smiles in test_frame["smiles"].tolist()]
-        positive_scores = [float(prediction) for prediction in predictions]
+        test_smiles = test_frame["smiles"].tolist()
+        # Binary prediction (>=1 alert) for threshold metrics; alert count as
+        # the continuous score for ROC AUC ranking.
+        predictions = [int(ochem_predictions.get(smiles, {"label": 0})["label"]) for smiles in test_smiles]
+        positive_scores = [float(ochem_predictions.get(smiles, {"count": 0})["count"]) for smiles in test_smiles]
         metrics = classification_metrics_from_predictions(
             labels=test_frame["label"].astype(int).tolist(),
             positive_scores=positive_scores,

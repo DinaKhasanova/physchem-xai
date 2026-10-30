@@ -1,174 +1,98 @@
-# Physicochemical descriptors for explainable mutagenicity prediction
+# From Black Boxes to Chemical Interpretability: Explainable Deep Learning for Mutagenicity Prediction
 
-Code, data and results for
+Code, data and results for a study of whether physicochemical descriptors make
+transformer-based mutagenicity predictions more chemically interpretable, rather than
+merely more accurate. A pretrained SMILES language model ([MolEncoder](https://huggingface.co/fabikru/MolEncoder))
+is augmented with descriptors through a confidence-gated correction to a retained
+SMILES-only baseline, and evaluated on two Ames-endpoint datasets of 7,251 and 18,754
+compounds.
 
-> Khasanova, D.; Tetko, I. V.; Menezes, F.; Ballabio, F.; Schwab, C. H.; Sacher, O.;
-> Magdziarz, T.; Barber, C. *From black boxes to chemical interpretability:
-> explainable deep learning for mutagenicity prediction.* (submitted)
-
-A pretrained SMILES transformer (MolEncoder) is fine-tuned for Ames mutagenicity
-prediction. Physicochemical descriptors (Gasteiger or GFN2-xTB charges, atomic
-polarizabilities, heavy-atom neighbourhood counts, frontier-orbital descriptors and
-RDKit molecular properties) are added through a confidence-gated correction to a
-retained SMILES-only baseline. The question is whether descriptors that carry
-explicit chemistry improve both accuracy and the chemical plausibility of
-integrated-gradients attributions.
-
-## Repository layout
-
-```
-data/
-  ames_7251.csv                            Ames dataset (TDC), 7,251 compounds used in the study
-  clean_data.py                            RDKit cleaning pipeline (salts, stereo, tautomers, duplicates)
-  pesticides_genotoxicity_ames_format.csv  Pesticides genotoxicity dataset (Table 2)
-  pesticides_dropped_organometallic.csv    organometallic compounds removed from it
-  pesticides_external.csv                  11,591 pesticide compounds absent from Ames (Table 3)
-  screening_results-ames.xls               OCHEM ToxAlerts screening export, Ames set
-  screening_results-pesticides.xls         OCHEM ToxAlerts screening export, pesticide set
-  xtb_7251/                                GFN2-xTB output files, see data/xtb_7251/README.md
-AMES_xTB/                 processed xTB descriptor tables (also on Zenodo)
-toxicophores/             29 Kazius structural alerts (SMARTS)
-src/molencoder/           MolEncoder model definition
-src/downstream/toxicity/  fine-tuning, descriptor construction, cross-validation, XAI tools
-scripts/                  reproduction and analysis scripts
-scripts/xai/              integrated gradients, flip cohorts, gate decomposition, figures
-run_perfeat.py            per-feature attention variant (runs prefixed pf_)
-run_ig_*.sh               integrated-gradients pipelines
-run_external.sh           external validation on the pesticide compounds
-runs_7251/                cross-validation results on Ames, one folder per descriptor set
-runs_pest/                cross-validation results on the pesticide set
-results/xai/              attribution and gate results, Ames
-results/xai_pest/         attribution results and figure panels, pesticides
-results/external/         external validation predictions and summary (Table 3)
-```
-
-Every run folder contains `cross_validation_summary.{json,csv}`,
-`cross_validation_fold_metrics.csv` and, per fold, `test_metrics.{json,csv}` and the
-exact train/validation/test split (`splits/`). Model checkpoints are too large for the
-repository and are distributed as a GitHub release (see below).
-
-## Paper tables and the folders behind them
-
-All models: stratified 5-fold cross-validation, seed 42, identical folds across runs.
-
-**Table 1 – Ames (7,251 compounds)**
-
-| Paper row | Folder | ROC AUC |
-|---|---|---|
-| OCHEM-derived toxicophore assignment | `src/downstream/toxicity/evaluate_ochem_cv.py` | 0.789 |
-| MolEncoder baseline, SMILES only | `runs_7251/baseline` | 0.857 |
-| + polarizability (Crippen/RDKit) | `runs_7251/rdkit_mr` | 0.865 |
-| + polarizability (xTB) | `runs_7251/xtb_polar` | 0.866 |
-| + charges (Gasteiger) + neighborhoods + polarizability (Crippen) | `runs_7251/pf_gast_neigh_mr` | 0.870 |
-| + orbital descriptors (xTB) | `runs_7251/orbital_tok` | 0.870 |
-| + neighborhoods | `runs_7251/neighbors` | 0.870 |
-| + charges (Mulliken/xTB) | `runs_7251/xtb_charge` | 0.874 |
-| + global descriptors (RDKit) | `runs_7251/physchem_tok` | 0.874 |
-| + charges (Gasteiger) | `runs_7251/pf_gasteiger` | 0.875 |
-| + charges (Gasteiger) + neighborhoods | `runs_7251/pf_gast_neigh` | 0.876 |
-
-Paired t-tests against the baseline are in `runs_7251/table1_statistics.csv`
-(`scripts/compare_runs_stats.py`).
-
-**Table 2 – Pesticides genotoxicity:** `runs_pest/{baseline, gasteiger, neighbors,
-gast_neigh, physchem_tok}`.
-
-**Table 3 – External validation:** `results/external/external_summary.csv`, produced by
-`run_external.sh` from the five Ames-trained fold models of each descriptor set.
-
-**Figures 4 and 5, Tables S1 and S2:** `results/xai/` and `results/xai_pest/`, produced
-by `run_ig_gast.sh`, `run_ig_xtb.sh`, `run_ig_pest.sh`,
-`scripts/xai/gate_decomposition.py` and `scripts/xai/gate_by_label.py`.
-
-### Per-feature attention (`pf_` runs)
-
-In the standard classifier, token hidden states are pooled with one weight per token,
-computed from the summed magnitude of all its descriptors. With several descriptors
-the model therefore cannot weight them separately. `run_perfeat.py` gives each
-descriptor its own attention weight and pooled context vector; nothing else in the
-training pipeline changes. With a single descriptor the two variants are
-mathematically identical: `pf_gasteiger` and `gasteiger` give the same ROC AUC
-(0.875 ± 0.011) and balanced accuracy within 0.002 (0.791 vs 0.789), the difference
-coming from non-deterministic CPU training.
-All other runs use the standard pooling. Integrated gradients were computed on the
-`gasteiger` checkpoints, which are also the ones provided for the Gasteiger model.
-
-### Descriptor attachment and scaling
-
-Per-atom values are written onto the SMILES token(s) of that atom; molecule-level
-values are broadcast to every token, so both enter through the same pathway.
-Molecule-level descriptors are standardised with dataset-level means and standard
-deviations (`MOLECULE_FEATURE_STATS` in `features.py`). The descriptor pathway is
-trained with its own learning rate (2 × 10⁻³) and a neutral gate initialisation.
-
-`runs_7251/_molecule_branch/` holds an earlier design in which molecule-level
-descriptors entered through a separate branch. It is not used in the paper and is kept
-for reference only (metrics, no checkpoints).
-
-## Installation
+## Quick Start
 
 ```bash
 python3.11 -m venv .venv && source .venv/bin/activate
-pip install -e .              # or: pip install -r requirements-lock.txt
+pip install -e .
 export PYTHONPATH=src
 ```
 
-MolEncoder pretrained weights are downloaded from Hugging Face on first use
-([fabikru/MolEncoder](https://github.com/fabikru/MolEncoder)).
-`scripts/setup_vm.sh` provisions a fresh Linux machine. Training is CPU-feasible; the
-full Table 1 took about a day on 2 vCPUs.
+MolEncoder weights are downloaded from Hugging Face on first use. To reuse the trained
+models instead of retraining, `bash scripts/download_checkpoints.sh` fetches them from
+the GitHub release and verifies them against `ckpt_md5.txt`. Training is CPU-feasible;
+the full Ames table took about a day on 2 vCPUs. `RESULTS.md` maps every table and
+figure in the paper onto the folder that produced it.
 
-## Reproducing the results
+## Repository Structure
 
-```bash
-python scripts/verify_7251.py          # checks xTB outputs against the tokenised SMILES
-bash scripts/run_table_7251.sh         # Table 1, standard pooling
-python run_perfeat.py ...               # Table 1, pf_ runs; exact commands in the file header
-bash scripts/run_pesticides.sh         # Table 2
-bash run_external.sh                   # Table 3
-bash run_ig_gast.sh                    # integrated gradients, Ames, Gasteiger
-bash run_ig_xtb.sh                     # integrated gradients, Ames, xTB charges
-bash run_ig_pest.sh                    # integrated gradients, pesticides
+### Core Implementation (`src/`)
+
+- **`molencoder/`** — the pretrained encoder.
+- **`downstream/toxicity/`** — fine-tuning, descriptor construction and cross-validation.
+  `features.py` builds and scales the descriptor channels, `train.py` holds the gated
+  fusion, and `run_cross_validation.py` is the entry point for every run in the paper.
+
+### Analysis (`scripts/`)
+
+- **`run_table_7251.sh`**, **`run_pesticides.sh`**, **`run_external.sh`** (repo root) — the three
+  result tables, in that order. **Start here!**
+- **`xai/integrated_gradients.py`** — per-atom attributions, 64-step midpoint rule, with
+  a completeness check on every molecule.
+- **`xai/attribution_shift.py`** — how far each charge scheme moves attribution onto
+  alert-matched atoms, with the paired test between the two.
+- **`xai/gate_decomposition.py`**, **`xai/gate_by_label.py`** — the descriptor pathway's
+  own contribution, read off the model and cut by true label and alert.
+- **`compare_runs_stats.py`** — paired t-tests against the SMILES-only baseline.
+- **`verify_7251.py`** — checks the xTB outputs against the tokenised SMILES.
+
+### Results (`runs_*/`, `results/`)
+
+- **`runs_7251/`**, **`runs_pest/`** — cross-validation output, one folder per descriptor
+  set. Each holds `cross_validation_summary.{json,csv}` and, per fold, `test_metrics.{json,csv}`
+  and the exact train/validation/test split.
+- **`results/external/`** — predictions and summary for the 11,591 pesticide compounds
+  absent from the Ames set.
+- **`results/xai/`**, **`results/xai_pest/`** — attributions, flip cohorts and figure panels.
+
+Two sets of runs are kept for reference but are not used in the paper: `pf_*` gives each
+descriptor its own attention weight instead of one weight per token (identical to the
+standard pooling when there is only one descriptor), and `_molecule_branch/` is an
+earlier design in which molecule-level descriptors entered through a separate branch.
+
+### Data (`data/`)
+
+- **`ames_7251.csv`** — Ames set from Therapeutics Data Commons, cleaned with
+  `clean_data.py`. Four of 7,255 compounds yielded no valid protonated structure and
+  were excluded.
+- **`pesticides_genotoxicity_ames_format.csv`** — pesticide genotoxicity set;
+  **`pesticides_external.csv`** is the subset absent from Ames.
+- **`xtb_7251/`** — raw GFN2-xTB outputs. Processed descriptor tables are in
+  **`AMES_xTB/`** and on Zenodo.
+- **`screening_results-*.xls`** — OCHEM ToxAlerts screening exports.
+- **`toxicophores/alerts_kazius29.csv`** (repo root) — the 29 Kazius structural alerts as SMARTS.
+
+## Citation
+
+```bibtex
+@unpublished{khasanova2026interpretability,
+  title  = {From Black Boxes to Chemical Interpretability: Explainable Deep
+            Learning for Mutagenicity Prediction},
+  author = {Khasanova, D. and Menezes, F. and Ballabio, F. and Schwab, C. H.
+            and Sacher, O. and Magdziarz, T. and Barber, C. and Tetko, I. V.},
+  year   = {2026},
+  note   = {Submitted}
+}
 ```
 
-To reuse the trained models instead of retraining, download the checkpoints:
+## Links
 
-```bash
-bash scripts/download_checkpoints.sh   # needs the GitHub CLI (gh); verified against ckpt_md5.txt
-```
+- GFN2-xTB descriptors (AMES_xTB): [10.5281/zenodo.22919496](https://doi.org/10.5281/zenodo.22919496)
+- MolEncoder weights: [fabikru/MolEncoder](https://huggingface.co/fabikru/MolEncoder)
+- MolEncoder code and paper: [FabianKruger/molencoder](https://github.com/FabianKruger/molencoder), [10.1039/D5DD00369E](https://doi.org/10.1039/D5DD00369E)
 
-Checkpoints are provided for every model in Tables 1–3 except the two polarizability
-sets (`rdkit_mr`, `xtb_polar`), which did not improve significantly over the baseline
-and were not retained. Their per-fold metrics and splits are in the repository, and
-they can be retrained with `scripts/run_table_7251.sh`.
-
-## Tests
-
-```bash
-python -m downstream.toxicity.xai.selftest --pure   # no torch/RDKit needed
-python -m downstream.toxicity.xai.selftest          # adds the environment check
-```
-
-Checks the SMILES character walk, the assignment of atom values to multi-character
-element symbols, the Spearman and curve-AUC helpers, and checkpoint reading.
-
-## Data availability
-
-- **Ames:** Therapeutics Data Commons (TDC). The raw set was cleaned with
-  `data/clean_data.py`. Of the 7,255 compounds sent to 3D structure generation, four did
-  not yield a valid protonated structure with Epik and were excluded, leaving 7,251; they
-  are listed in `data/xtb_7251/ames_out_assignment.csv`.
-- **GFN2-xTB descriptors (AMES_xTB):** Zenodo,
-  [10.5281/zenodo.22919496](https://doi.org/10.5281/zenodo.22919496), with a copy in
-  `AMES_xTB/` and the raw output files in `data/xtb_7251/`.
-- **OCHEM ToxAlerts screening:** exported tables in `data/screening_results-*.xls`.
-
-## Licence
+## License
 
 Code: MIT (see `LICENSE`). GFN2-xTB descriptor data: CC-BY-4.0 (Zenodo).
 
 ## Acknowledgements
 
-Helmholtz Munich, Technical University of Munich, MN-AM and Lhasa Limited. Supported by
-the BIGCHEM programme. MolEncoder pretrained weights from
-[fabikru/MolEncoder](https://github.com/fabikru/MolEncoder).
+Helmholtz Munich, Technical University of Munich, MN-AM and Lhasa Limited, supported by
+the BIGCHEM programme.

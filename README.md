@@ -33,7 +33,7 @@ figure in the paper onto the folder that produced it.
 ### Analysis (`scripts/`)
 
 - **`run_table_7251.sh`**, **`run_pesticides.sh`**, **`run_external.sh`** (repo root) — the three
-  result tables, in that order. **Start here!**
+  result tables, in that order.
 - **`xai/integrated_gradients.py`** — per-atom attributions, 64-step midpoint rule, with
   a completeness check on every molecule.
 - **`xai/attribution_shift.py`** — how far each charge scheme moves attribution onto
@@ -91,8 +91,3 @@ earlier design in which molecule-level descriptors entered through a separate br
 ## License
 
 Code: MIT (see `LICENSE`). GFN2-xTB descriptor data: CC-BY-4.0 (Zenodo).
-
-## Acknowledgements
-
-Helmholtz Munich, Technical University of Munich, MN-AM and Lhasa Limited, supported by
-the BIGCHEM programme.

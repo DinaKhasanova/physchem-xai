@@ -1,8 +1,8 @@
 """Read a Lightning/PyTorch checkpoint without torch installed.
 
 A ``.ckpt`` written by ``torch.save`` is a zip archive: a pickle describing the
-tensors plus one raw byte blob per storage. Everything :mod:`diagnostics` needs
--- the two learned fusion scalars and two weight matrices -- can be recovered
+tensors plus one raw byte blob per storage. The two learned fusion scalars and
+two weight matrices this module reports can be recovered
 with nothing but ``zipfile``, ``pickle`` and NumPy.
 
 That matters when the machine holding the checkpoint has no GPU stack, which is
@@ -74,7 +74,7 @@ class _LazyTensor:
         if self.storage.dtype is None:
             raise NotImplementedError(
                 "Unsupported storage dtype (bfloat16 or an untyped storage). "
-                "Re-save the checkpoint in float32, or run diagnostics.py with torch."
+                "Re-save the checkpoint in float32, or read it with torch."
             )
         raw = archive.read(f"{prefix}data/{self.storage.key}")
         flat = np.frombuffer(raw, dtype=self.storage.dtype)

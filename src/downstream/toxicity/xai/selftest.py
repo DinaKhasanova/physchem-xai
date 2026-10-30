@@ -65,7 +65,7 @@ def _ckpt_peek_test(results: Results) -> None:
         return
 
     if "torch" in sys.modules:
-        results.check("ckpt_peek round trip", True, "skipped: real torch present, use diagnostics.py")
+        results.check("ckpt_peek round trip", True, "skipped: real torch present")
         return
 
     saved = {name: sys.modules.get(name) for name in ("torch", "torch._utils")}

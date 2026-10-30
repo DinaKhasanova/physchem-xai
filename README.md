@@ -18,8 +18,7 @@ export PYTHONPATH=src
 MolEncoder weights are downloaded from Hugging Face on first use. To reuse the trained
 models instead of retraining, `bash scripts/download_checkpoints.sh` fetches them from
 the GitHub release and verifies them against `ckpt_md5.txt`. Training is CPU-feasible;
-the full Ames table took about a day on 2 vCPUs. `RESULTS.md` maps every table and
-figure in the paper onto the folder that produced it.
+the full Ames table took about a day on 2 vCPUs.
 
 ## Repository Structure
 

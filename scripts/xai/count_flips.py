@@ -5,13 +5,13 @@ the baseline is wrong and the descriptor model is right, restricted to
 alert-bearing true non-mutagens -- the population the attribution comparison
 will be computed over.
 
-No occlusion. Reuses the same loader and model-loading path as
-counterfactual_occlusion.py so the probabilities are identical to what that
-script would report as positive_probability.
+Reuses the loader and model-loading path in attribution_base.py, so the
+probabilities match what the attribution scripts report as
+positive_probability.
 
 Usage
 -----
-    cd ~/physchem-xai_upload && source .venv/bin/activate && export PYTHONPATH=src
+    cd physchem-xai && source .venv/bin/activate && export PYTHONPATH=src
 
     python count_flips.py \
         --runs-dir runs_7251 \

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-time VM setup. Run from the directory that contains physchem-xai_upload/.
+# One-time VM setup. Run from the directory that contains the repository.
 #
 #   bash setup_vm.sh
 #

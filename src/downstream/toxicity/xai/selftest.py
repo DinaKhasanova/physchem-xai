@@ -5,16 +5,12 @@ Split into two tiers so it is useful in both environments:
 * ``--pure`` runs only tests with no torch / RDKit dependency. These pass in any
   Python 3.10+ environment and cover the string-walk logic that everything else
   is built on.
-* the default run additionally checks, against the real ``features`` module,
-  that :func:`counterfactual_occlusion.token_matrix_from_atom_values` reproduces
-  ``features.build_token_feature_matrix`` exactly. If that equivalence breaks,
-  the counterfactual attributions are on a different scale from training and
-  the numbers are not comparable.
+* the default run additionally checks that the torch environment is importable.
 
 Usage
 -----
     python -m downstream.toxicity.xai.selftest --pure       # anywhere
-    python -m downstream.toxicity.xai.selftest              # on the GPU VM
+    python -m downstream.toxicity.xai.selftest              # with torch installed
 """
 
 from __future__ import annotations
@@ -182,7 +178,6 @@ def pure_tests(results: Results) -> None:
         parsed_atom_count,
         spearman as _spearman,
     )
-    from .wins import exact_mcnemar
 
     # simple chain
     results.check(
@@ -265,118 +260,11 @@ def pure_tests(results: Results) -> None:
 
     _ckpt_peek_test(results)
 
-    # mcnemar
-    results.check("mcnemar/no_discordance", abs(exact_mcnemar(0, 0) - 1.0) < 1e-12)
-    results.check("mcnemar/symmetric", abs(exact_mcnemar(5, 5) - 1.0) < 1e-9)
-    results.check("mcnemar/strong", exact_mcnemar(0, 12) < 0.001, f"p={exact_mcnemar(0, 12):.2g}")
-    results.check("mcnemar/monotone", exact_mcnemar(2, 12) < exact_mcnemar(5, 9))
 
 
 # --------------------------------------------------------------------------
 def integration_tests(results: Results) -> None:
     import torch
-
-    from ..features import build_token_feature_matrix
-    from .common import char_to_atom_index
-    from .counterfactual_occlusion import (
-        delete_atom,
-        parent_atom_values,
-        token_matrix_from_atom_values,
-    )
-
-    samples = [
-        "CCO",
-        "c1ccccc1N",
-        "CCl",
-        "CBr",
-        "C[N+](=O)[O-]",
-        "c1cc[nH]c1",
-        "Cc1ccc(N)cc1Cl",
-        "O=C(O)c1ccccc1O",
-    ]
-    feature_sets = [("charge",), ("neighbor_k3",), ("charge", "polarizability", "neighbor_k2")]
-
-    worst = 0.0
-    mismatched: list[str] = []
-    for smiles in samples:
-        for names in feature_sets:
-            length = len(smiles) + 2
-            reference = build_token_feature_matrix(
-                smiles=smiles,
-                feature_names=names,
-                encoded_length=length,
-            )
-            values = parent_atom_values(smiles, names, None, None)
-            candidate = token_matrix_from_atom_values(
-                smiles=smiles,
-                feature_names=names,
-                atom_values=values,
-                encoded_length=length,
-            )
-            if reference.shape != candidate.shape:
-                mismatched.append(f"{smiles}/{names}: shape {tuple(reference.shape)} vs {tuple(candidate.shape)}")
-                continue
-            delta = float((reference - candidate).abs().max().item())
-            worst = max(worst, delta)
-            if delta > 1e-5:
-                mismatched.append(f"{smiles}/{names}: max abs diff {delta:.2e}")
-
-    results.check(
-        "token_matrix_from_atom_values == build_token_feature_matrix",
-        not mismatched,
-        f"worst abs diff {worst:.2e}" if not mismatched else "; ".join(mismatched[:4]),
-    )
-
-    # atom deletion round trip
-    from rdkit import Chem
-
-    ok = True
-    details: list[str] = []
-    for smiles in ["Cc1ccc(N)cc1Cl", "O=C(O)c1ccccc1O", "C[N+](=O)[O-]"]:
-        mol = Chem.MolFromSmiles(smiles)
-        for atom_index in range(mol.GetNumAtoms()):
-            new_smiles, parent_positions = delete_atom(smiles, atom_index)
-            if new_smiles is None:
-                continue
-            new_mol = Chem.MolFromSmiles(new_smiles)
-            if new_mol is None:
-                ok = False
-                details.append(f"{smiles} -{atom_index} gave unparseable {new_smiles}")
-                continue
-            walked = len([v for v in set(char_to_atom_index(new_smiles)) if v is not None])
-            if walked != new_mol.GetNumAtoms():
-                ok = False
-                details.append(f"{new_smiles}: walk {walked} vs rdkit {new_mol.GetNumAtoms()}")
-            if len(parent_positions) != new_mol.GetNumAtoms():
-                ok = False
-                details.append(f"{new_smiles}: {len(parent_positions)} parent positions for {new_mol.GetNumAtoms()} atoms")
-    results.check("delete_atom round trip", ok, "; ".join(details[:4]) or "all deletions valid")
-
-    # element identity is preserved when carrying parent values across a deletion
-    ok = True
-    details = []
-    for smiles in ["Cc1ccc(N)cc1Cl", "O=C(O)c1ccccc1O"]:
-        mol = Chem.MolFromSmiles(smiles)
-        parent_elements = [atom.GetSymbol() for atom in mol.GetAtoms()]
-        for atom_index in range(mol.GetNumAtoms()):
-            new_smiles, parent_positions = delete_atom(smiles, atom_index)
-            if new_smiles is None:
-                continue
-            new_mol = Chem.MolFromSmiles(new_smiles)
-            Chem.MolToSmiles(new_mol, canonical=True)
-            from .counterfactual_occlusion import _smiles_output_order
-
-            order = _smiles_output_order(new_mol)
-            new_elements = [new_mol.GetAtomWithIdx(i).GetSymbol() for i in order]
-            carried = [parent_elements[p] for p in parent_positions]
-            if new_elements != carried:
-                ok = False
-                details.append(f"{smiles} -{atom_index}: {new_elements} vs {carried}")
-    results.check(
-        "parent value carry-over keeps elements aligned",
-        ok,
-        "; ".join(details[:3]) or "element sequences match after every deletion",
-    )
 
     results.check("torch import", torch.__version__ is not None, f"torch {torch.__version__}")
 

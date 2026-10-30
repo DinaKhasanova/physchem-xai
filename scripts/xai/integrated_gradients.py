@@ -1,9 +1,9 @@
 """Integrated gradients for SmilesAnchorResidualAuxClassifier.
 
 Per-atom attributions with no perturbation, no molecule rebuilding and
-therefore no losses -- every molecule keeps every atom. This is what occlusion
-could not do: `--token-mode recompute` failed on 47.7% of atoms, systematically
-in fused ring systems.
+therefore no losses -- every molecule keeps every atom. Perturbation-based
+attribution cannot do this: deleting an atom and rebuilding the molecule fails
+on a large fraction of atoms, systematically in fused ring systems.
 
 Because the architecture is additive at the output
 
@@ -18,11 +18,10 @@ Baselines
 ---------
 Token embeddings integrate from the pad embedding, the standard choice.
 Descriptors integrate from the **per-feature training-set median**, not zero:
-an all-zero charge vector is a molecule that cannot exist, and integrating
-through it is the same objection the occlusion module raises about zeroing
-descriptors.
+an all-zero charge vector is a molecule that cannot exist, so integrating
+through it would attribute against an impossible reference.
 
-    cd ~/physchem-xai_upload && source .venv/bin/activate && export PYTHONPATH=src
+    cd physchem-xai && source .venv/bin/activate && export PYTHONPATH=src
 
     python scripts/xai/integrated_gradients.py \
         --config gasteiger --token-features charge \

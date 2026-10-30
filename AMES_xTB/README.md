@@ -72,10 +72,14 @@ token is `token_index + 1`.
 
 ## Calculation details
 
-GFN2-xTB calculations were performed with ULYSSES. Geometries were generated
-from SMILES and optimised with GFN2-xTB before the single-point calculation.
-The TDC `AMES` set contains 7,255 compounds. Four are excluded because GFN2-xTB
-gave no usable result: `Drug 6234`, `Drug 6447`, `Drug 7555` and `Drug 864`.
+GFN2-xTB calculations were performed with ULYSSES. Three-dimensional structures
+were generated from SMILES with CORINA Classic (MN-AM), protonation states were
+assigned with Schrodinger Epik at pH 7.4 +/- 0.2, and the geometries were optimised
+with GFN2-xTB before the single-point calculation.
+The TDC `AMES` set contains 7,255 compounds. Four are excluded because protonation
+state assignment (Schrodinger Epik, pH 7.4 +/- 0.2) returned no usable structure for
+them, so they never entered the GFN2-xTB step: `Drug 6234`, `Drug 6447`, `Drug 7555`
+and `Drug 864`.
 
 **Protonation states:** for 1,561 compounds, the calculated species is in a
 different protonation state from the one written in `smiles`, for example

@@ -8,11 +8,7 @@ The attribution methods live outside this module:
 
 * ``scripts/xai/integrated_gradients.py``  -- integrated gradients, used in the manuscript
 * ``scripts/xai/gate_decomposition.py``    -- exact decomposition of the gated descriptor term
-* ``downstream.toxicity.xai.*``            -- diagnostics, ablations, faithfulness checks
-
-This module was formerly ``compute_occlusion.py``. Occlusion was replaced by
-integrated gradients and its implementation removed; the name was misleading
-because every attribution script imports this file.
+* ``scripts/xai/count_flips.py``           -- prediction changes relative to the baseline model
 """
 from __future__ import annotations
 

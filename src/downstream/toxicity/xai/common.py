@@ -79,9 +79,8 @@ def spread_atom_values_over_characters(smiles: str, atom_values: list[float]) ->
 
     Written as the same walk rather than as a reimplementation on top of
     :func:`common.char_to_atom_index`, because any divergence here would put the
-    perturbed molecule on a different feature scale from the training inputs and
-    silently corrupt every counterfactual score. :mod:`selftest` asserts the two
-    agree exactly.
+    attributed molecule on a different feature scale from the training inputs and
+    silently corrupt every attribution score.
     """
 
     values: list[float] = []

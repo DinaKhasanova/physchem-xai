@@ -11,7 +11,7 @@ the descriptor pathway's contribution to this molecule's prediction, in logits.
 No attribution method, no baseline choice, no perturbation, and therefore no
 molecules lost -- it runs on all 7,251.
 
-    cd ~/physchem-xai_upload && source .venv/bin/activate && export PYTHONPATH=src
+    cd physchem-xai && source .venv/bin/activate && export PYTHONPATH=src
     python scripts/xai/gate_decomposition.py \
         --descriptor-config gasteiger --descriptor-token-features charge \
         --out results/xai/gate_decomposition.csv

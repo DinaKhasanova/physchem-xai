@@ -11,7 +11,7 @@ read after backward() and before any optimiser step, so nothing here depends on
 the learning rate at step 0; the optimiser is stepped only so later batches
 reflect a model that has started to move.
 
-    cd ~/physchem-xai_upload && source .venv/bin/activate && export PYTHONPATH=src
+    cd physchem-xai && source .venv/bin/activate && export PYTHONPATH=src
     python scripts/xai/gradient_norms.py --config gasteiger --token-features charge
 
 Reports, per batch and pooled, the ratio
